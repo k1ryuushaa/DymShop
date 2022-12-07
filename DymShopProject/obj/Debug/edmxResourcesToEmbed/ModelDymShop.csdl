@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dymshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="buyer">
+    <Key>
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserSurname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserPathronymic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserPhone" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Name="UserRole" Type="Int32" Nullable="false" />
+    <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UserLogin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="employee" Relationship="Self.employee_ibfk_1" FromRole="buyers" ToRole="employee" />
+    <NavigationProperty Name="role" Relationship="Self.fk_buyers_roles" FromRole="buyers" ToRole="roles" />
+    <NavigationProperty Name="orders" Relationship="Self.orders_ibfk_2" FromRole="buyers" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.products_ibfk_1" FromRole="categories" ToRole="products" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="Employee_ID" />
+    </Key>
+    <Property Name="Employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeSurname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeePathronymic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeRole" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeBirthday" Type="DateTime" Nullable="false" />
+    <Property Name="EmployeeAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeLogin" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeePassword" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="buyer" Relationship="Self.employee_ibfk_1" FromRole="employee" ToRole="buyers" />
+    <NavigationProperty Name="role" Relationship="Self.fk_emp_roles" FromRole="employee" ToRole="roles" />
+  </EntityType>
+  <EntityType Name="orderproduct">
+    <Key>
+      <PropertyRef Name="OrderNumber" />
+      <PropertyRef Name="ProductArticle" />
+    </Key>
+    <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+    <Property Name="ProductArticle" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductCount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="order" Relationship="Self.orderproduct_ibfk_1" FromRole="orderproduct" ToRole="orders" />
+    <NavigationProperty Name="product" Relationship="Self.orderproduct_ibfk_2" FromRole="orderproduct" ToRole="products" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="OrderNumber" />
+    </Key>
+    <Property Name="OrderNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDateStart" Type="DateTime" />
+    <Property Name="OrderDateDelivery" Type="DateTime" />
+    <Property Name="OrderPickPoint" Type="Int32" />
+    <Property Name="OrderBuyer" Type="Int32" Nullable="false" />
+    <Property Name="OrderCode" Type="Int32" />
+    <Property Name="OrderStatus" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="buyer" Relationship="Self.orders_ibfk_2" FromRole="orders" ToRole="buyers" />
+    <NavigationProperty Name="orderproducts" Relationship="Self.orderproduct_ibfk_1" FromRole="orders" ToRole="orderproduct" />
+    <NavigationProperty Name="pickuppoint" Relationship="Self.orders_ibfk_1" FromRole="orders" ToRole="pickuppoint" />
+  </EntityType>
+  <EntityType Name="pickuppoint">
+    <Key>
+      <PropertyRef Name="PointID" />
+    </Key>
+    <Property Name="PointID" Type="Int32" Nullable="false" />
+    <Property Name="PointIndex" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Street" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TownNumber" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="orders" Relationship="Self.orders_ibfk_1" FromRole="pickuppoint" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="Article" />
+    </Key>
+    <Property Name="Article" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductCategory" Type="Int32" Nullable="false" />
+    <Property Name="ProductPhoto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ProductCost" Type="Int32" Nullable="false" />
+    <Property Name="ProductDiscount" Type="Int32" Nullable="false" />
+    <Property Name="ProductCountInStock" Type="Int32" Nullable="false" />
+    <Property Name="ProductDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductSupplier" Type="Int32" />
+    <NavigationProperty Name="category" Relationship="Self.products_ibfk_1" FromRole="products" ToRole="categories" />
+    <NavigationProperty Name="orderproducts" Relationship="Self.orderproduct_ibfk_2" FromRole="products" ToRole="orderproduct" />
+    <NavigationProperty Name="supplier" Relationship="Self.products_ibfk_2" FromRole="products" ToRole="suppliers" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="Role_ID" />
+    </Key>
+    <Property Name="Role_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="buyers" Relationship="Self.fk_buyers_roles" FromRole="roles" ToRole="buyers" />
+    <NavigationProperty Name="employees" Relationship="Self.fk_emp_roles" FromRole="roles" ToRole="employee" />
+  </EntityType>
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.products_ibfk_2" FromRole="suppliers" ToRole="products" />
+  </EntityType>
+  <Association Name="employee_ibfk_1">
+    <End Role="buyers" Type="Self.buyer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="buyers">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="employee">
+        <PropertyRef Name="Employee_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_buyers_roles">
+    <End Role="roles" Type="Self.role" Multiplicity="1" />
+    <End Role="buyers" Type="Self.buyer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roles">
+        <PropertyRef Name="Role_ID" />
+      </Principal>
+      <Dependent Role="buyers">
+        <PropertyRef Name="UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="orders_ibfk_2">
+    <End Role="buyers" Type="Self.buyer" Multiplicity="1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="buyers">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="OrderBuyer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="products_ibfk_1">
+    <End Role="categories" Type="Self.category" Multiplicity="1" />
+    <End Role="products" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="products">
+        <PropertyRef Name="ProductCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_emp_roles">
+    <End Role="roles" Type="Self.role" Multiplicity="1" />
+    <End Role="employee" Type="Self.employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roles">
+        <PropertyRef Name="Role_ID" />
+      </Principal>
+      <Dependent Role="employee">
+        <PropertyRef Name="EmployeeRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="orderproduct_ibfk_1">
+    <End Role="orders" Type="Self.order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="orderproduct" Type="Self.orderproduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="OrderNumber" />
+      </Principal>
+      <Dependent Role="orderproduct">
+        <PropertyRef Name="OrderNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="orderproduct_ibfk_2">
+    <End Role="products" Type="Self.product" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="orderproduct" Type="Self.orderproduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="Article" />
+      </Principal>
+      <Dependent Role="orderproduct">
+        <PropertyRef Name="ProductArticle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="orders_ibfk_1">
+    <End Role="pickuppoint" Type="Self.pickuppoint" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pickuppoint">
+        <PropertyRef Name="PointID" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="OrderPickPoint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="products_ibfk_2">
+    <End Role="suppliers" Type="Self.supplier" Multiplicity="0..1" />
+    <End Role="products" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="products">
+        <PropertyRef Name="ProductSupplier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dymshopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="buyers" EntityType="Self.buyer" />
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="employees" EntityType="Self.employee" />
+    <EntitySet Name="orderproducts" EntityType="Self.orderproduct" />
+    <EntitySet Name="orders" EntityType="Self.order" />
+    <EntitySet Name="pickuppoints" EntityType="Self.pickuppoint" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="roles" EntityType="Self.role" />
+    <EntitySet Name="suppliers" EntityType="Self.supplier" />
+    <AssociationSet Name="employee_ibfk_1" Association="Self.employee_ibfk_1">
+      <End Role="buyers" EntitySet="buyers" />
+      <End Role="employee" EntitySet="employees" />
+    </AssociationSet>
+    <AssociationSet Name="fk_buyers_roles" Association="Self.fk_buyers_roles">
+      <End Role="roles" EntitySet="roles" />
+      <End Role="buyers" EntitySet="buyers" />
+    </AssociationSet>
+    <AssociationSet Name="orders_ibfk_2" Association="Self.orders_ibfk_2">
+      <End Role="buyers" EntitySet="buyers" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="products_ibfk_1" Association="Self.products_ibfk_1">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="products" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="fk_emp_roles" Association="Self.fk_emp_roles">
+      <End Role="roles" EntitySet="roles" />
+      <End Role="employee" EntitySet="employees" />
+    </AssociationSet>
+    <AssociationSet Name="orderproduct_ibfk_1" Association="Self.orderproduct_ibfk_1">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="orderproduct" EntitySet="orderproducts" />
+    </AssociationSet>
+    <AssociationSet Name="orderproduct_ibfk_2" Association="Self.orderproduct_ibfk_2">
+      <End Role="products" EntitySet="products" />
+      <End Role="orderproduct" EntitySet="orderproducts" />
+    </AssociationSet>
+    <AssociationSet Name="orders_ibfk_1" Association="Self.orders_ibfk_1">
+      <End Role="pickuppoint" EntitySet="pickuppoints" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="products_ibfk_2" Association="Self.products_ibfk_2">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="products" EntitySet="products" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
