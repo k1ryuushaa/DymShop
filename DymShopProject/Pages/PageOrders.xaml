@@ -1,0 +1,49 @@
+﻿<Page x:Class="DymShopProject.Pages.PageOrders"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:DymShopProject.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageCatalog">
+
+    <Grid x:Name="catalogGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="170"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="87*"></RowDefinition>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="30" FontWeight="DemiBold" FontFamily="Berlin Sans FB" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="36,9,36,8.4">DymShop</TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1" FontSize="30" Padding="0" x:Name="SearchTextBox" Margin="5" FontFamily="Gabriola" Style="{StaticResource MaterialDesignTextBox}" materialDesign:HintAssist.Hint="Искать" TextChanged="SearchTextBox_TextChanged"></TextBox>
+        <ComboBox Grid.Row="0" Grid.Column="2" FontSize="30" FontFamily="Gabriola" materialDesign:HintAssist.Hint="Цена" Padding="0" x:Name="OrderStatusSort" Style="{StaticResource MaterialDesignComboBox}" Margin="5" SelectionChanged="OrderStatusSort_SelectionChanged"></ComboBox>
+        <ListBox x:Name="ListProducts" Grid.ColumnSpan="3" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.RowSpan="2" Grid.Row="1">
+
+            
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <TextBlock FontFamily="Gabriola" FontSize="40" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" x:Name="ErrNotifi" Grid.ColumnSpan="3">Продукция не найдена</TextBlock>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,0,-0.4">
+            <Button x:Name="logoutBtn" FontSize="18" Margin="5" FontFamily="Century Gothic" Padding="25 5 25 5" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Background="#FFB73A79" Click="logoutBtn_Click" >Выйти</Button>
+        </StackPanel>
+        <Button x:Name="backBtn" FontSize="18" Grid.Row="2" HorizontalAlignment="Left" Margin="5" FontFamily="Century Gothic" Padding="25 5 25 5" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Background="#FFB73A3A" Click="backBtn_Click" >
+            Назад
+        </Button>
+    </Grid>
+</Page>

@@ -1,0 +1,20 @@
+﻿<Window x:Class="DymShopProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DymShopProject"
+        mc:Ignorable="d"
+        Title="DymShop" Height="700" Width="900" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="GridMain">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.7,0">
+                <GradientStop Color="#FFA2FCE4" Offset="0.005"/>
+                <GradientStop Color="#FFFFB7B7" Offset="1"/>
+                <GradientStop Color="#FFFE8BFF" Offset="0.513"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Frame x:Name="frmMain" NavigationUIVisibility="Hidden"></Frame>
+        
+    </Grid>
+</Window>
