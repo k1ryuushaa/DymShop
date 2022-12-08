@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="DymShopProject.UserControls.ProductControlAdmin"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DymShopProject.UserControls"
+             mc:Ignorable="d" 
+             Height="auto" d:DesignWidth="300">
+    <Border Background="White" CornerRadius="10" Margin="10" Cursor="Hand" x:Name="productBrd">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" Direction="312" ShadowDepth="0"/>
+        </Border.Effect>
+        <StackPanel>
+            <Image x:Name="productImage" Height="150" Margin="10"></Image>
+            <TextBox FontSize="20" HorizontalAlignment="Stretch" Margin="15 5" materialDesign:HintAssist.Hint="Наименование" HorizontalContentAlignment="Center"  x:Name="productName" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Century Gothic">wfwef</TextBox>
+            <TextBox FontSize="20" Margin="15 5" x:Name="productCost" materialDesign:HintAssist.Hint="Цена" FontFamily="Century Gothic" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">wfwef</TextBox>
+            <Grid Margin="15 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button FontSize="15" Margin="2" FontFamily="Century Gothic" x:Name="EditProductBtn" Background="#FF3AB749" Click="EditProductBtn_Click">Изменить</Button>
+                <Button FontSize="15" Margin="2" FontFamily="Century Gothic" x:Name="DeleteProductBtn" Grid.Column="1" Background="#FFB73A50" Click="DeleteProductBtn_Click">Удалить</Button>
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>
