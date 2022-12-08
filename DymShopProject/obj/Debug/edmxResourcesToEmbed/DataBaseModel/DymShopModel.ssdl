@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище dymshopModel" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="categories">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="orderproduct">
+    <Key>
+      <PropertyRef Name="OrderNumber" />
+      <PropertyRef Name="ProductArticle" />
+    </Key>
+    <Property Name="OrderNumber" Type="int" Nullable="false" />
+    <Property Name="ProductArticle" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="ProductCount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="orders">
+    <Key>
+      <PropertyRef Name="OrderNumber" />
+    </Key>
+    <Property Name="OrderNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDateStart" Type="date" />
+    <Property Name="OrderDateDelivery" Type="date" />
+    <Property Name="OrderPickPoint" Type="int" />
+    <Property Name="OrderBuyer" Type="int" Nullable="false" />
+    <Property Name="OrderCode" Type="int" />
+    <Property Name="OrderStatus" Type="varchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pickuppoint">
+    <Key>
+      <PropertyRef Name="PointID" />
+    </Key>
+    <Property Name="PointID" Type="int" Nullable="false" />
+    <Property Name="PointIndex" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Street" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="TownNumber" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="products">
+    <Key>
+      <PropertyRef Name="Article" />
+    </Key>
+    <Property Name="Article" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="ProductCategory" Type="int" Nullable="false" />
+    <Property Name="ProductPhoto" Type="varchar" MaxLength="150" />
+    <Property Name="ProductCost" Type="int" Nullable="false" />
+    <Property Name="ProductDiscount" Type="int" Nullable="false" />
+    <Property Name="ProductCountInStock" Type="int" Nullable="false" />
+    <Property Name="ProductDescription" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="ProductSupplier" Type="int" />
+  </EntityType>
+  <EntityType Name="roles">
+    <Key>
+      <PropertyRef Name="Role_ID" />
+    </Key>
+    <Property Name="Role_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="suppliers">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierName" Type="varchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserSurname" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserPatronymic" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="18" Nullable="false" />
+    <Property Name="UserRole" Type="int" Nullable="false" />
+    <Property Name="UserBirthday" Type="date" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+    <Property Name="UserLogin" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="UserAdress" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="orderproduct_ibfk_1">
+    <End Role="orders" Type="Self.orders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="orderproduct" Type="Self.orderproduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="OrderNumber" />
+      </Principal>
+      <Dependent Role="orderproduct">
+        <PropertyRef Name="OrderNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="orderproduct_ibfk_2">
+    <End Role="products" Type="Self.products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="orderproduct" Type="Self.orderproduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="Article" />
+      </Principal>
+      <Dependent Role="orderproduct">
+        <PropertyRef Name="ProductArticle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="orders_ibfk_1">
+    <End Role="pickuppoint" Type="Self.pickuppoint" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pickuppoint">
+        <PropertyRef Name="PointID" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="OrderPickPoint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="products_ibfk_1">
+    <End Role="categories" Type="Self.categories" Multiplicity="1" />
+    <End Role="products" Type="Self.products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="products">
+        <PropertyRef Name="ProductCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="products_ibfk_2">
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
+    <End Role="products" Type="Self.products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="products">
+        <PropertyRef Name="ProductSupplier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="roleusers">
+    <End Role="roles" Type="Self.roles" Multiplicity="1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roles">
+        <PropertyRef Name="Role_ID" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_orders">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="orders" Type="Self.orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="OrderBuyer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище dymshopModelContainer">
+    <EntitySet Name="categories" EntityType="Self.categories" Schema="dymshop" store:Type="Tables" />
+    <EntitySet Name="orderproduct" EntityType="Self.orderproduct" Schema="dymshop" store:Type="Tables" />
+    <EntitySet Name="orders" EntityType="Self.orders" Schema="dymshop" store:Type="Tables" />
+    <EntitySet Name="pickuppoint" EntityType="Self.pickuppoint" Schema="dymshop" store:Type="Tables" />
+    <EntitySet Name="products" EntityType="Self.products" Schema="dymshop" store:Type="Tables" />
+    <EntitySet Name="roles" EntityType="Self.roles" Schema="dymshop" store:Type="Tables" />
+    <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dymshop" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dymshop" store:Type="Tables" />
+    <AssociationSet Name="orderproduct_ibfk_1" Association="Self.orderproduct_ibfk_1">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="orderproduct" EntitySet="orderproduct" />
+    </AssociationSet>
+    <AssociationSet Name="orderproduct_ibfk_2" Association="Self.orderproduct_ibfk_2">
+      <End Role="products" EntitySet="products" />
+      <End Role="orderproduct" EntitySet="orderproduct" />
+    </AssociationSet>
+    <AssociationSet Name="orders_ibfk_1" Association="Self.orders_ibfk_1">
+      <End Role="pickuppoint" EntitySet="pickuppoint" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="products_ibfk_1" Association="Self.products_ibfk_1">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="products" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="products_ibfk_2" Association="Self.products_ibfk_2">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="products" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="roleusers" Association="Self.roleusers">
+      <End Role="roles" EntitySet="roles" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+    <AssociationSet Name="user_orders" Association="Self.user_orders">
+      <End Role="users" EntitySet="users" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

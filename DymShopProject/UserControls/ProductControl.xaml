@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="DymShopProject.UserControls.ProductControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DymShopProject.UserControls"
+             mc:Ignorable="d" 
+             Height="280" d:DesignWidth="300">
+    <Border Background="White" CornerRadius="30" Margin="10" Cursor="Hand" x:Name="productBrd" PreviewMouseUp="productBrd_PreviewMouseUp">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" Direction="312" ShadowDepth="0"/>
+        </Border.Effect>
+        <StackPanel>
+            <Image x:Name="productImage" Height="150" Margin="10"></Image>
+            <TextBlock FontSize="20" Margin="5 5 5 -4" LineStackingStrategy="BlockLineHeight" LineHeight="20" x:Name="productName" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Century Gothic" HorizontalAlignment="Center">wfwef</TextBlock>
+            <TextBlock FontSize="30" x:Name="productCost" FontFamily="Gabriola" HorizontalAlignment="Center">wfwef</TextBlock>
+        </StackPanel>
+    </Border>
+</UserControl>
